@@ -15,6 +15,9 @@
 
 <div class="container">
   <h1>Welcome to SignUp!</h1>
+    <% if @incorrect_signup %>
+      <p>Please try again</p>
+    <% end %>
     <table>
     <form action="/signup" method="POST">
       <p>Full Name:<br><input type="text" name="user[fullname]"></p>
@@ -24,5 +27,3 @@
     </form>
   </table>
 </div>
-
-
