@@ -1,15 +1,17 @@
-enable :sessions
-
 get '/' do
+  erb :index
+end
+
+get '/secret' do
   if session[:user_id]
     erb :secret
   else
-    erb :index
+    redirect '/'  
   end
 end
 
 post '/login' do
-  if user = User.login(params[:email], params[:password])
+  if user = User.login(params[:user])
     session[:user_id] = user.id
     erb :secret
   else
@@ -24,15 +26,12 @@ post '/' do
 end
 
 post '/signup' do
-  @user = User.new(params[:user])
-  puts params
-  @user.password = params[:password]
-    # to do more awesomeness to the signup flow
-    # if @user.save
-    #   do a thing
-    #   like redirect
-    # else
-    #   maybe print out some errors?
-    #   and reload the erb
-    # end
+  @user = User.create(params[:user])
+  if @user.save
+    session[:user_id] = user.id
+    redirect '/secret'
+  else
+    @incorrect_signup = true
+    erb :index
+  end
 end
