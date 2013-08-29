@@ -1,0 +1,1 @@
+This challenge will teach us how to implement authentication in web apps.
