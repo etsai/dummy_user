@@ -3,11 +3,11 @@
     <% if @incorrect_login %>
       <p>Please try again</p>
     <% end %>
-    
+
   <table>
     <form action="/login" method="POST">
-      <p>Email:<br><input type="text" name="email"></p>
-      <p>Password:<br><input type="password" name="password_hash"></p>
+      <p>Email:<br><input type="text" name="user[email]"></p>
+      <p>Password:<br><input type="password" name="user[password]"></p>
       <p><input type="submit" value="login"></p>
     </form>
   </table>
@@ -17,9 +17,9 @@
   <h1>Welcome to SignUp!</h1>
     <table>
     <form action="/signup" method="POST">
-      <p>Full Name:<br><input type="text" name="fullname"></p>
-      <p>Email:<br><input type="text" name="email"></p>
-      <p>Create a Password:<br><input type="password" name="password_hash"></p>
+      <p>Full Name:<br><input type="text" name="user[fullname]"></p>
+      <p>Email:<br><input type="text" name="user[email]"></p>
+      <p>Create a Password:<br><input type="password" name="user[password]"></p>
       <p><input type="submit" value="signup"></p>
     </form>
   </table>

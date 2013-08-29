@@ -9,18 +9,13 @@ get '/' do
 end
 
 post '/login' do
-  def login
-    @user = User.find_by_email(params[:email])
-    if @user && @user.password == params[:password_hash]
-      session[:user_id] = @user.id
-      puts session[:user_id]
-      erb :secret
-    else
-      @incorrect_login = true
-      erb :index
-    end
+  if user = User.login(params[:email], params[:password])
+    session[:user_id] = user.id
+    erb :secret
+  else
+    @incorrect_login = true
+    erb :index
   end
-  login
 end
 
 post '/' do
@@ -29,10 +24,15 @@ post '/' do
 end
 
 post '/signup' do
-  def create
-    @user = User.new(params)
-    @user.password = params[:password_hash]
-    @user.save!
-  end
-  create
+  @user = User.new(params[:user])
+  puts params
+  @user.password = params[:password]
+    # to do more awesomeness to the signup flow
+    # if @user.save
+    #   do a thing
+    #   like redirect
+    # else
+    #   maybe print out some errors?
+    #   and reload the erb
+    # end
 end
