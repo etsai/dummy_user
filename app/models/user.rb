@@ -1,20 +1,19 @@
+
 class User < ActiveRecord::Base
-  validates :email, presence: true, uniquness: true
+  include BCrypt
+
+  validates :email, presence: true, uniqueness: true
   validates :fullname, presence: true
-  validates :password, presence: true
+  validates :password_hash, presence: true
 
-  def create
-    @user = User.new(params[:email])
-    @user.password = params[:password]
-    @user.save!
+
+  def password
+    @password ||= Password.new(password_hash)
   end
 
-  def self.authenticate(email, password)
-    @user = User.find_by_email(params[:email])
-    if @user.password == params[:password]
-      true
-    else
-      @error = true
-    end
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_hash = @password
   end
+
 end

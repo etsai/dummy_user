@@ -1,13 +1,38 @@
+enable :sessions
+
 get '/' do
-  # Look in app/views/index.erb
-  erb :index
+  if session[:user_id]
+    erb :secret
+  else
+    erb :index
+  end
 end
 
-post '/sign_in' do
+post '/login' do
+  def login
+    @user = User.find_by_email(params[:email])
+    if @user && @user.password == params[:password_hash]
+      session[:user_id] = @user.id
+      puts session[:user_id]
+      erb :secret
+    else
+      @incorrect_login = true
+      erb :index
+    end
+  end
+  login
 end
 
-post '/log_out' do
+post '/' do
+  session[:user_id] = nil
+  redirect "/"
 end
 
-post '/sign_up' do
+post '/signup' do
+  def create
+    @user = User.new(params)
+    @user.password = params[:password_hash]
+    @user.save!
+  end
+  create
 end

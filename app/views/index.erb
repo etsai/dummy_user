@@ -1,18 +1,28 @@
 <div class="container">
-  <h1>Welcome to Login Page!</h1>
-
+  <h1>Welcome to Login!</h1>
+    <% if @incorrect_login %>
+      <p>Please try again</p>
+    <% end %>
+    
   <table>
-    <form action="" method="POST">
-      <p>Email:  <input type="text" name="email"></p>
-      <p>Password:  <input type="text" name="password"></p>
-    </form>
-  </table>
-
-    <table>
-    <form action="" method="POST">
-      <p>Full Name:  <input type="text" name="fullname"></p>
-      <p>Email:  <input type="text" name="email"></p>
-      <p>Password:  <input type="text" name="password"></p>
+    <form action="/login" method="POST">
+      <p>Email:<br><input type="text" name="email"></p>
+      <p>Password:<br><input type="password" name="password_hash"></p>
+      <p><input type="submit" value="login"></p>
     </form>
   </table>
 </div>
+
+<div class="container">
+  <h1>Welcome to SignUp!</h1>
+    <table>
+    <form action="/signup" method="POST">
+      <p>Full Name:<br><input type="text" name="fullname"></p>
+      <p>Email:<br><input type="text" name="email"></p>
+      <p>Create a Password:<br><input type="password" name="password_hash"></p>
+      <p><input type="submit" value="signup"></p>
+    </form>
+  </table>
+</div>
+
+
